@@ -1,0 +1,18 @@
+@startuml
+actor User
+participant "check_login()" as Login
+participant "get_conn()" as DBConn
+database "MySQL Database" as DB
+
+User -> Login : input Username + Password
+Login -> DBConn : open connection
+DBConn -> DB : connect()
+Login -> DB : SELECT user by Username
+DB --> Login : return user data
+Login -> Login : check_password_hash()
+alt if password valid
+    Login --> User : success + user data
+else
+    Login --> User : login failed
+end
+@enduml

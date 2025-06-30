@@ -1,0 +1,20 @@
+@startuml
+actor User
+participant "create_user()" as Register
+participant "get_conn()" as DBConn
+database "MySQL Database" as DB
+
+User -> Register : input user data
+Register -> Register : validate Username/Password
+Register -> Register : hash password
+Register -> DBConn : get_conn()
+DBConn -> DB : connect()
+Register -> DB : INSERT INTO Users
+alt if success
+    DB --> Register : success
+    Register --> User : user created
+else
+    DB --> Register : error
+    Register --> User : failed message
+end
+@enduml

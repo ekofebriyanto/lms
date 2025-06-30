@@ -10,7 +10,7 @@ from flask_login import (
 from . import model
 
 
-app = Flask(__name__)
+app = Flask(__name__) #kode utama dalam program
 app.config["SECRET_KEY"] = "Wfd8do6H7d74vdesbuRLlMFiAeXeJ7r"
 # Flask login
 login_manager = LoginManager()
