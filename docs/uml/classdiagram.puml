@@ -1,0 +1,57 @@
+@startuml
+class Users {
+  +ID : int
+  +Username : varchar
+  +Password : varchar
+  +FirstName : varchar
+  +LastName : varchar
+  +PhoneNumber : char
+  +Email : varchar
+  +Faculty : varchar
+  +Institution : varchar
+  +Address : varchar
+  +is_student : bool
+  +is_teacher : bool
+  +is_manager : bool
+  +is_admin : bool
+}
+
+class Clusters {
+  +ID : int
+  +Name : varchar
+}
+
+class Courses {
+  +ID : int
+  +Name : varchar
+  +ClusterID : int
+  +TeacherID : int
+}
+
+class StudentCourse {
+  +StudentID : int
+  +CourseID : int
+}
+
+class ManagerCluster {
+  +ManagerID : int
+  +ClusterID : int
+}
+
+class Contents {
+  +ID : int
+  +CourseID : int
+  +Title : varchar
+  +TextContent : text
+  +CreatedAt : datetime
+}
+
+Users "1" -- "0..*" ManagerCluster : is_manager
+Users "1" -- "0..*" StudentCourse : is_student
+Users "1" -- "0..*" Courses : is_teacher
+Clusters "1" -- "0..*" Courses
+Clusters "1" -- "0..*" ManagerCluster
+Courses "1" -- "0..*" Contents
+Courses "1" -- "0..*" StudentCourse
+@enduml
+
